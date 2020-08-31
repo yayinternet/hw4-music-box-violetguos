@@ -64,7 +64,7 @@ class MenuScreen {
     const queryTheme = this.container.querySelector("#query-input");
     console.log(selectElement.options[selectElement.selectedIndex].text);
     console.log(queryTheme.value);
-    
+    this.container.classList.add('inactive');
   }
   
 }
