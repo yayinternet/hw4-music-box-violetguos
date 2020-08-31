@@ -13,26 +13,38 @@ class MusicScreen {
     this.show = this.show.bind(this);
     this.container = container;
     document.addEventListener('select-menu-done', this.show);
+
+
   }
   // TODO(you): Add methods as necessary.
   
   createImageDiv(){
     const newDiv = document.createElement("div"); 
 
-    newDiv.setAttribute('class', 'background'); // and make sure myclass has some styles in css
+    newDiv.setAttribute('id', 'background-gif'); // and make sure myclass has some styles in css
     newDiv.style.flexGrow = '1';
     this.container.appendChild(newDiv);
   }
 
   createFooter(){
     const newDiv = document.createElement("footer"); 
-    newDiv.setAttribute('class', 'button'); // and make sure myclass has some styles in css
-   
+    newDiv.setAttribute('id', 'play-button'); // and make sure myclass has some styles in css
+    
     this.container.appendChild(newDiv);
+
+    const playButtonContainer = this.container.querySelector('#play-button');
+    this.playButton = new PlayButton(playButtonContainer);
+  }
+
+  createGif(){
+    // new gif display
+    const gifContainer = this.container.querySelector("#background-gif");
+    this.gifDisplay = new GifDisplay(gifContainer);
   }
 
   show(){
     this.createImageDiv();
     this.createFooter();
+    this.createGif();
   }
 }
