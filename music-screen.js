@@ -8,8 +8,31 @@
 //
 // See HW4 writeup for more hints and details.
 class MusicScreen {
-  constructor() {
+  constructor(container) {
     // TODO(you): Implement the constructor and add fields as necessary.
+    this.show = this.show.bind(this);
+    this.container = container;
+    document.addEventListener('select-menu-done', this.show);
   }
   // TODO(you): Add methods as necessary.
+  
+  createImageDiv(){
+    const newDiv = document.createElement("div"); 
+
+    newDiv.setAttribute('class', 'background'); // and make sure myclass has some styles in css
+    newDiv.style.flexGrow = '1';
+    this.container.appendChild(newDiv);
+  }
+
+  createFooter(){
+    const newDiv = document.createElement("footer"); 
+    newDiv.setAttribute('class', 'button'); // and make sure myclass has some styles in css
+   
+    this.container.appendChild(newDiv);
+  }
+
+  show(){
+    this.createImageDiv();
+    this.createFooter();
+  }
 }
