@@ -5,16 +5,17 @@
 class MenuScreen {
   constructor(container) {
     // TODO(you): Implement the constructor and add fields as necessary.
-    this.onResponse = this.onResponse.bind(this);
-    this.onStreamProcessed = this.onStreamProcessed.bind(this);
+    this._onResponse = this._onResponse.bind(this);
+    this._onStreamProcessed = this._onStreamProcessed.bind(this);
     this._onGo = this._onGo.bind(this);
+    this._onJsonReady = this._onJsonReady.bind(this);
 
     this.container = container;
     this.themeGenerator();
 
     // populate the menu list
     const promise = fetch('https://yayinternet.github.io/hw4-music/songs.json', {mode: 'cors'});
-    promise.then(this.onResponse, this.onError);
+    promise.then(this._onResponse, this._onError).then(this._onStreamProcessed);
 
 
     // get the go button
@@ -23,7 +24,7 @@ class MenuScreen {
   }
 
   // TODO(you): Add methods as necessary.
-  onStreamProcessed(obj) {
+  _onStreamProcessed(obj) {
     const selectElement = this.container.querySelector("#song-selector");
     for(let i in obj){
         // create new option element
@@ -37,11 +38,11 @@ class MenuScreen {
     }
   }
   
-  onResponse(response) {
-    response.json().then(this.onStreamProcessed);
+  _onResponse(response) {
+    return response.json();
   }
   
-  onError(error) {
+  _onError(error) {
     console.log('Error: ' + error);
   }
 
@@ -64,6 +65,20 @@ class MenuScreen {
     const queryTheme = this.container.querySelector("#query-input");
     console.log(selectElement.options[selectElement.selectedIndex].text);
     console.log(queryTheme.value);
+
+    // query for a gif
+    const path = "http://api.giphy.com/v1/gifs/search?q=";
+    const limit = 25;
+    const rating = 'g';
+    const api_key = 'dc6zaTOxFJmzC';
+
+    const query = path + encodeURIComponent(queryTheme) 
+    + "&api_key=" + encodeURIComponent(api_key) + "&limit=" + limit + "&rating=" + rating;
+
+    const promise = fetch(query);
+    promise.then(this._onResponse)
+        .then(this._onJsonReady);
+    // hide menu screen UI
     this.hide();
   }
 
@@ -71,5 +86,9 @@ class MenuScreen {
     this.container.classList.add('inactive');
     document.dispatchEvent(new CustomEvent('select-menu-done'));
   }
-  
+
+  _onJsonReady(json){
+    console.log(json);
+  }
+
 }

@@ -6,6 +6,13 @@ TODO(you): Write any additional styles you need here.
     flex-direction: column;
     height: 100vh;
     flex-grow: 1;
+
+    /*for the background gif*/
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
 }
 
 footer {
@@ -15,7 +22,4 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /*place holder*/
-    background-color: red;
 }
