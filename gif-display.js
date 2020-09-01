@@ -7,7 +7,7 @@ class GifDisplay {
     // TODO(you): Implement the constructor and add fields as necessary.
     this.container = container;
     console.log("gif", gifUrl);
-    this.container.style.backgroundImage = 'url(images/sheep.jpeg)';
+    this.container.style.backgroundImage = 'url('+gifUrl+')';
   }
   // TODO(you): Add methods as necessary.
 }
