@@ -8,7 +8,9 @@ class App {
     const menuContainer = document.querySelector("#menu");
     this.menu = new MenuScreen(menuContainer);
     const musicContainer = document.querySelector("#music")
+
     this.music = new MusicScreen(musicContainer);
+
   }
   // TODO(you): Add methods as necessary.
 }

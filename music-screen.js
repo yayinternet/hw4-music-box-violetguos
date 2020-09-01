@@ -11,6 +11,7 @@ class MusicScreen {
   constructor(container) {
     // TODO(you): Implement the constructor and add fields as necessary.
     this.show = this.show.bind(this);
+    this.createGif = this.createGif.bind(this);
     this.container = container;
     document.addEventListener('select-menu-done', this.show);
 
@@ -36,15 +37,15 @@ class MusicScreen {
     this.playButton = new PlayButton(playButtonContainer);
   }
 
-  createGif(){
+  createGif(e){
     // new gif display
     const gifContainer = this.container.querySelector("#background-gif");
-    this.gifDisplay = new GifDisplay(gifContainer);
+    this.gifDisplay = new GifDisplay(gifContainer, e.detail);
   }
 
-  show(){
+  show(e){
     this.createImageDiv();
     this.createFooter();
-    this.createGif();
+    this.createGif(e);
   }
 }

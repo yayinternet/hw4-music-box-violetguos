@@ -84,11 +84,13 @@ class MenuScreen {
 
   hide(){
     this.container.classList.add('inactive');
-    document.dispatchEvent(new CustomEvent('select-menu-done'));
+    
   }
 
   _onJsonReady(json){
-    console.log(json);
+    const gifUrl = json.data[0].images.downsized.url;
+    const menuEvent = new CustomEvent('select-menu-done', { 'detail': gifUrl });
+    document.dispatchEvent(menuEvent);
   }
 
 }
