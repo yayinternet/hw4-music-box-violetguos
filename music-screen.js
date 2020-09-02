@@ -63,6 +63,11 @@ class MusicScreen {
   _playEvent(event){
     const playButton = event.currentTarget;
     console.log(playButton);
+    this.audioPlayer.setKickCallback(this._onKick);
     this.audioPlayer.play();
+  }
+
+  _onKick() {
+    console.log('kick!');
   }
 }
