@@ -32,7 +32,7 @@ class MenuScreen {
       // create text node to add to option element (opt)
       opt.appendChild( document.createTextNode(obj[i]['artist'] + ": " + obj[i]['title']) );
       // set value property of opt
-      opt.value = 'option value'; 
+      opt.value = obj[i]['songUrl']; 
       // add opt to end of select box (sel)
       selectElement.appendChild(opt); 
     }
@@ -63,7 +63,9 @@ class MenuScreen {
     event.preventDefault();
     const selectElement = this.container.querySelector("#song-selector");
     const queryTheme = this.container.querySelector("#query-input");
-    console.log(selectElement.options[selectElement.selectedIndex].text);
+    
+    // the songs and theme selected
+    console.log(selectElement.options[selectElement.selectedIndex].value);
     console.log(queryTheme.value);
 
     // query for a gif

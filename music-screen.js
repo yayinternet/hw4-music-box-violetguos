@@ -14,7 +14,10 @@ class MusicScreen {
     this.createGif = this.createGif.bind(this);
     this.container = container;
     document.addEventListener('select-menu-done', this.show);
-
+    
+    // music player
+    this._playEvent = this._playEvent.bind(this);
+    this.audioPlayer = new AudioPlayer();
 
   }
   // TODO(you): Add methods as necessary.
@@ -34,7 +37,9 @@ class MusicScreen {
     this.container.appendChild(newDiv);
 
     const playButtonContainer = this.container.querySelector('#play-button');
-    this.playButton = new PlayButton(playButtonContainer);
+    const playButton = new PlayButton(playButtonContainer);
+    playButton.createPlayButton();
+    playButtonContainer.addEventListener('click', this._playEvent)
   }
 
   createGif(e){
@@ -47,5 +52,11 @@ class MusicScreen {
     this.createImageDiv();
     this.createFooter();
     this.createGif(e);
+  }
+
+  _playEvent(event){
+    const playButton = event.currentTarget;
+    console.log(playButton);
+    this.audioPlayer.play();
   }
 }

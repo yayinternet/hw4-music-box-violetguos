@@ -6,7 +6,7 @@ class PlayButton {
   constructor(container) {
     // TODO(you): Implement the constructor and add fields as necessary.
     this.container = container;
-    this.createPlayButton();
+   //this.createPlayButton();
   }
   // TODO(you): Add methods as necessary.
 
@@ -17,4 +17,13 @@ class PlayButton {
     img.style.height = '60px';
     this.container.appendChild(img);
   }
+
+  createPauseButton(){
+    const img = document.createElement('img');
+    img.src = 'images/pause.png';
+    img.style.width = '60px';
+    img.style.height = '60px';
+    this.container.appendChild(img);
+  }
+
 }
