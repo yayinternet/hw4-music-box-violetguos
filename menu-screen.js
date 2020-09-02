@@ -65,7 +65,7 @@ class MenuScreen {
     const queryTheme = this.container.querySelector("#query-input");
     
     // the songs and theme selected
-    console.log(selectElement.options[selectElement.selectedIndex].value);
+    this.musicUrl = selectElement.options[selectElement.selectedIndex].value;
     console.log(queryTheme.value);
 
     // query for a gif
@@ -91,7 +91,9 @@ class MenuScreen {
 
   _onJsonReady(json){
     const gifUrl = json.data[0].images.downsized.url;
-    const menuEvent = new CustomEvent('select-menu-done', { 'detail': gifUrl });
+    console.log("this.musicUrl", this.musicUrl);
+    const menuEvent = new CustomEvent('select-menu-done',  
+                          {detail: {'gif': gifUrl, 'music':  this.musicUrl}});
     document.dispatchEvent(menuEvent);
   }
 

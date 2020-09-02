@@ -30,7 +30,7 @@ class MusicScreen {
     this.container.appendChild(newDiv);
   }
 
-  createFooter(){
+  createFooter(event){
     const newDiv = document.createElement("footer"); 
     newDiv.setAttribute('id', 'play-button'); // and make sure myclass has some styles in css
     
@@ -40,18 +40,24 @@ class MusicScreen {
     const playButton = new PlayButton(playButtonContainer);
     playButton.createPlayButton();
     playButtonContainer.addEventListener('click', this._playEvent)
+
+    // set song
+    this.audioPlayer.setSong(event.detail['music']);
+
+    this.audioPlayer.play();
   }
 
-  createGif(e){
+  createGif(event){
     // new gif display
     const gifContainer = this.container.querySelector("#background-gif");
-    this.gifDisplay = new GifDisplay(gifContainer, e.detail);
+    this.gifDisplay = new GifDisplay(gifContainer, event.detail['gif']);
+    
   }
 
-  show(e){
+  show(event){
     this.createImageDiv();
-    this.createFooter();
-    this.createGif(e);
+    this.createFooter(event);
+    this.createGif(event);
   }
 
   _playEvent(event){
