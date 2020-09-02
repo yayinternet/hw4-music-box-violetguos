@@ -16,8 +16,8 @@ class MusicScreen {
     document.addEventListener('select-menu-done', this.show);
     
     // music player
-    this._playEvent = this._playEvent.bind(this);
     this.audioPlayer = new AudioPlayer();
+    this._playEvent = this._playEvent.bind(this);
 
   }
   // TODO(you): Add methods as necessary.
@@ -39,12 +39,14 @@ class MusicScreen {
     const playButtonContainer = this.container.querySelector('#play-button');
     const playButton = new PlayButton(playButtonContainer);
     playButton.createPlayButton();
+
+
     playButtonContainer.addEventListener('click', this._playEvent)
 
     // set song
     this.audioPlayer.setSong(event.detail['music']);
-
-    this.audioPlayer.play();
+    this.audioPlayer.setKickCallback(this._onKick);
+    //this.audioPlayer.play();
   }
 
   createGif(event){
@@ -61,10 +63,17 @@ class MusicScreen {
   }
 
   _playEvent(event){
-    const playButton = event.currentTarget;
-    console.log(playButton);
-    this.audioPlayer.setKickCallback(this._onKick);
-    this.audioPlayer.play();
+    const playButton = event.currentTarget.querySelector('img');
+    
+    if (playButton.src.includes('images/pause.png')){
+      playButton.src = 'images/play.png';
+      this.audioPlayer.play();
+    }
+    else{
+      playButton.src = 'images/pause.png';
+      this.audioPlayer.pause();
+    }
+        
   }
 
   _onKick() {
