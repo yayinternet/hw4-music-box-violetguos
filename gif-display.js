@@ -7,11 +7,23 @@ class GifDisplay {
     // TODO(you): Implement the constructor and add fields as necessary.
     this.container = container;
     this.gifUrlArr = gifUrlArr;
+    this.nextGif = this.bufferNext();
   }
   // TODO(you): Add methods as necessary.
 
   changeGif(gifUrl){
-    this.container.style.backgroundImage = 'url('+gifUrl+')';
+
+    const bufferGifContainer = document.querySelector("#buffer-gif");
+    if(this.nextGif && bufferGifContainer.style.backgroundImage != 'none'){
+      const gifContainer = document.querySelector("#background-gif");
+      
+      gifContainer.style.backgroundImage = bufferGifContainer.style.backgroundImage;
+      bufferGifContainer.style.backgroundImage = 'none';
+    }
+    else
+      this.container.style.backgroundImage = 'url('+gifUrl+')';
+
+    this.nextGif = this.bufferNext();
   }
 
   chooseRandom(){
@@ -27,7 +39,15 @@ class GifDisplay {
  
      }while(currentGifUrl.includes(this.gifUrlArr[randIndex]));
  
-     this.changeGif(this.gifUrlArr[randIndex]);
- 
+    return  this.gifUrlArr[randIndex];
+  }
+
+  bufferNext(){
+    const nextUrl = this.chooseRandom();
+    //const document.querySelector("#buffer-gif");
+    const bufferGifContainer = document.querySelector("#buffer-gif");
+    bufferGifContainer.style.backgroundImage = 'url('+nextUrl+')';
+    bufferGifContainer.style.zIndex = '0';
+
   }
 }

@@ -25,14 +25,7 @@ class MusicScreen {
 
   }
   // TODO(you): Add methods as necessary.
-  
-  createImageDiv(){
-    const newDiv = document.createElement("div"); 
 
-    newDiv.setAttribute('id', 'background-gif'); // and make sure myclass has some styles in css
-    newDiv.style.flexGrow = '1';
-    this.container.appendChild(newDiv);
-  }
 
   createFooter(event){
     const newDiv = document.createElement("footer"); 
@@ -58,29 +51,22 @@ class MusicScreen {
     this.gifDisplay = new GifDisplay(gifContainer, event.detail['gif']);
     this.gifDisplay.changeGif(event.detail['gif'][0]);
 
+    console.log(gifContainer.style);
     
   }
 
   show(event){
-    this.createImageDiv();
     this.createFooter(event);
     this.createGif(event);
   }
 
   _playEvent(event){
     const playButtonImg = event.currentTarget.querySelector('img');
-   
-    if (playButtonImg.src.includes('images/pause.png')){
-      playButtonImg.src = 'images/play.png';
-      app.music.audioPlayer.play();
-    }
-    else{
-      playButtonImg.src = 'images/pause.png';
-      app.music.audioPlayer.pause();
-    }
+    this.playButton.toggle(playButtonImg);
   }
 
   _onKick() {
-    this.gifDisplay.chooseRandom();
+    this.gifDisplay.changeGif(this.gifDisplay.chooseRandom());
+    
   }
 }

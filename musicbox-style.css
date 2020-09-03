@@ -5,7 +5,6 @@ TODO(you): Write any additional styles you need here.
     display: flex;
     flex-direction: column;
     height: 100vh;
-    flex-grow: 1;
 
     /*for the background gif*/
 
@@ -15,6 +14,19 @@ TODO(you): Write any additional styles you need here.
 
 }
 
+#background-gif {
+    flex-grow: 1;
+}
+
+#buffer-gif {
+    display: none;
+    background-color:
+        rgba(0, 0, 0, 0.3);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
 footer {
     font-size: 24px;
     color: white;
@@ -22,4 +34,5 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 3;
 }
