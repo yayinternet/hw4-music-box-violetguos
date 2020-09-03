@@ -20,6 +20,20 @@ class PlayButton {
     this.container.appendChild(img);
   }
 
+  toggle(playButton){
+    
+    if (playButton.src.includes('images/pause.png')){
+      playButton.src = 'images/play.png';
+      console.log(app);
+      app.music.audioPlayer.play();
+    }
+    else{
+      playButton.src = 'images/pause.png';
+      app.music.audioPlayer.play();
+    }
+        
+  }
+
   
   
 }

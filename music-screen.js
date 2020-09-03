@@ -12,11 +12,15 @@ class MusicScreen {
     // TODO(you): Implement the constructor and add fields as necessary.
     this.show = this.show.bind(this);
     this.createGif = this.createGif.bind(this);
+    this._onKick = this._onKick.bind(this);
+    this.createFooter = this.createFooter.bind(this);
+
     this.container = container;
     document.addEventListener('select-menu-done', this.show);
     
     // music player
     this.audioPlayer = new AudioPlayer();
+
     this._playEvent = this._playEvent.bind(this);
 
   }
@@ -37,22 +41,23 @@ class MusicScreen {
     this.container.appendChild(newDiv);
 
     const playButtonContainer = this.container.querySelector('#play-button');
-    const playButton = new PlayButton(playButtonContainer);
-    playButton.createPlayButton();
-
+    this.playButton = new PlayButton(playButtonContainer);
+    this.playButton.createPlayButton();
 
     playButtonContainer.addEventListener('click', this._playEvent)
 
     // set song
     this.audioPlayer.setSong(event.detail['music']);
     this.audioPlayer.setKickCallback(this._onKick);
-    //this.audioPlayer.play();
+    this.audioPlayer.play();
   }
 
   createGif(event){
     // new gif display
     const gifContainer = this.container.querySelector("#background-gif");
     this.gifDisplay = new GifDisplay(gifContainer, event.detail['gif']);
+    this.gifDisplay.changeGif(event.detail['gif'][0]);
+
     
   }
 
@@ -63,20 +68,19 @@ class MusicScreen {
   }
 
   _playEvent(event){
-    const playButton = event.currentTarget.querySelector('img');
-    
-    if (playButton.src.includes('images/pause.png')){
-      playButton.src = 'images/play.png';
-      this.audioPlayer.play();
+    const playButtonImg = event.currentTarget.querySelector('img');
+   
+    if (playButtonImg.src.includes('images/pause.png')){
+      playButtonImg.src = 'images/play.png';
+      app.music.audioPlayer.play();
     }
     else{
-      playButton.src = 'images/pause.png';
-      this.audioPlayer.pause();
+      playButtonImg.src = 'images/pause.png';
+      app.music.audioPlayer.pause();
     }
-        
   }
 
   _onKick() {
-    console.log('kick!');
+    this.gifDisplay.chooseRandom();
   }
 }

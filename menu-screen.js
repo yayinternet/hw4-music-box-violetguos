@@ -66,7 +66,6 @@ class MenuScreen {
     
     // the songs and theme selected
     this.musicUrl = selectElement.options[selectElement.selectedIndex].value;
-    console.log(queryTheme.value);
 
     // query for a gif
     const path = "http://api.giphy.com/v1/gifs/search?q=";
@@ -90,10 +89,12 @@ class MenuScreen {
   }
 
   _onJsonReady(json){
-    const gifUrl = json.data[0].images.downsized.url;
-    console.log("this.musicUrl", this.musicUrl);
+    const gifUrlArr = [];
+    for (let i = 0; i<json.data.length; i++)
+      gifUrlArr.push(json.data[i].images.downsized.url);
+
     const menuEvent = new CustomEvent('select-menu-done',  
-                          {detail: {'gif': gifUrl, 'music':  this.musicUrl}});
+                          {detail: {'gif': gifUrlArr, 'music':  this.musicUrl}});
     document.dispatchEvent(menuEvent);
   }
 
